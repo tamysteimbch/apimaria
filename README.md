@@ -18,10 +18,6 @@ Maria é o projeto para otimizar o tempo gasto criando provas de um professor.
 **Demonstração ainda não disponível**
 
 
-## Autor
-
-[@tamysteimbch](https://www.github.com/tamysteimbch)
-
 
 ## 🚀 Sobre mim
 Sou QA com especialidade em automação de testes e desenvolvedora fullstack nas horas vagas.
