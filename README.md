@@ -8,7 +8,7 @@ Maria é o projeto para otimizar o tempo gasto criando provas de um professor.
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
+**Client:** Nextjs, TailwindCSS
 
 **Server:** Node, Express, MongoDB
 
