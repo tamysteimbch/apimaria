@@ -1,0 +1,26 @@
+{
+  "name": "apimaria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js localhost:3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tamysteimbch/apimaria.git"
+  },
+  "author": "Tamiris Steimbch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tamysteimbch/apimaria/issues"
+  },
+  "homepage": "https://github.com/tamysteimbch/apimaria#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.2",
+    "nodemon": "^2.0.20"
+  }
+}
