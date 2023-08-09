@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
 
 const Professor = mongoose.model('Professor', {
-    name: String,
+    nome: String,
+    email: String,
     cpf: String,
-    app: Boolean
+    materias: Array,
+    anos: Array,
+    foto: String,
+    codProvas: Array,
+    codQuestoes: Array,
+    codEscola: String
 }) 
 
 module.exports = Professor

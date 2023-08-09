@@ -4,15 +4,23 @@ const Professor= require('../models/Professor')
 // create
 router.post('/', async (req, res) => {
 
-    const{name, cpf, app} = req.body
+    const{
+        nome, email, cpf, materias, anos, foto, codProvas, codQuestoes, codEscola
+    } = req.body
     const professor = {
-        name,
+        nome,
+        email,
         cpf,
-        app
+        materias,
+        anos,
+        foto,
+        codProvas,
+        codQuestoes,
+        codEscola
     }
 
-    if(!name) {
-        res.status(422).json({ error: 'nome obrigatório'})
+    if(!nome || !cpf || !email) {
+        res.status(422).json({ error: 'Dados obrigatórios faltando'})
         return
     }
 
@@ -20,7 +28,7 @@ router.post('/', async (req, res) => {
     
         await Professor.create(professor)
 
-        res.status(201).json({message: 'Professor inserido'})
+        res.status(201).json({message: 'Professor cadastrado com sucesso'})
 
     } catch (error){
         req.statusCode(500).json({error: error})
