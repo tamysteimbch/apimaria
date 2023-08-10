@@ -77,12 +77,12 @@ router.get('/:id', async (req,res) => {
 router.patch('/:id', async(req, res) => {
 
     const id = req.params.id
-    const{ name, cpf, app } = req.body
+    const{ nome, email, foto } = req.body
 
     const professor = {
-        name,
-        cpf,
-        app
+        nome,
+        email,
+        foto,
     }
 
     try {
