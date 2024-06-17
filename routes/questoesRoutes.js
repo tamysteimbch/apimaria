@@ -3,113 +3,104 @@ const Questoes= require('../models/Questoes')
 
 // create
 router.post('/', async (req, res) => {
-
-    const{
-        enunciado, multiplaEscolha, respostas, conteudo, turma, 
-        foto, dificuldade, compartilhar, codProfessor
-    } = req.body
-    const questoes = {
-        enunciado,
-        multiplaEscolha,
-        respostas,
-        conteudo,
-        turma,
-        foto,
-        dificuldade,
-        compartilhar,
-        codProfessor
-    }
-
-    if(!enunciado || !dificuldade || !conteudo) {
-        res.status(422).json({ error: 'Dados obrigatórios faltando'})
-        return
-    }
+    const {
+        codQuestao, enunciado, multEscolha, alternativas, conteudo, turma,
+        foto, dificuldade, referencia, compartilhar, codProfessor
+    } = req.body;
 
     try {
-    
-        await Questoes.create(questoes)
+        // Verifica se os dados obrigatórios estão presentes
+        if (!enunciado) {
+            return res.status(422).json({ error: 'Dados obrigatórios faltando' });
+        }
 
-        res.status(201).json({message: 'Questão cadastrado com sucesso'})
+        // Cria um novo objeto de questão com os dados recebidos
+        const novaQuestao = await Questoes.create({
+            codQuestao,
+            enunciado,
+            multEscolha, 
+            alternativas,
+            conteudo,
+            turma,
+            foto,
+            dificuldade,
+            referencia,
+            compartilhar,
+            codProfessor
+        });
 
-    } catch (error){
-        req.statusCode(500).json({error: error})
+        res.status(201).json({ message: 'Questão cadastrada com sucesso', questao: novaQuestao });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-
-})
+});
 
 // read
 router.get('/', async (req, res) => {
     try {
+        // Busca todas as questões
+        const questoes = await Questoes.find();
 
-        const questoes = await Questoes.find()
-
-        res.status(200).json(questoes)
-
-    } catch (error){
-
-        req.statusCode(500).json({error: error})
-
+        res.status(200).json(questoes);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-})
+});
 
-router.get('/:id', async (req,res) => {
-
-    const id = req.params.id
+router.get('/:id', async (req, res) => {
+    const id = req.params.id;
 
     try {
+        // Busca uma questão pelo ID específico
+        const questao = await Questoes.findById(id);
 
-        const questoes = await Questoes.findOne({_id: id})
-
-        if(!questoes) {
-            res.status(422).json({ message: 'Questão não encontrada' })
-            return
+        if (!questao) {
+            return res.status(404).json({ message: 'Questão não encontrada' });
         }
 
-        res.status(200).json(questoes)
-
+        res.status(200).json(questao);
     } catch (error) {
-        req.status(500).json({error: error})
+        res.status(500).json({ error: error.message });
     }
-
-})
+});
 
 // update
-
-router.patch('/:id', async(req, res) => {
-
-    const id = req.params.id
-    const{
-        enunciado, multiplaEscolha, respostas, conteudo, turma, 
-        foto, dificuldade, compartilhar, codProfessor
-    } = req.body
-
-    const questoes = {
-        enunciado,
-        multiplaEscolha,
-        respostas,
-        conteudo,
-        turma,
-        foto,
-        dificuldade,
-        compartilhar,
-        codProfessor
-    }
+router.patch('/:id', async (req, res) => {
+    const id = req.params.id;
+    const {
+        enunciado, multEscolha, alternativas, conteudo, turma,
+        foto, dificuldade, referencia, compartilhar, codProfessor
+    } = req.body;
 
     try {
-
-        const updatedQuestoes = await Questoes.updateOne({_id: id}, questoes)
-
-        if(updatedQuestoes.matchedCount === 0) {
-            res.status(422).json({ message: 'Questão não encontrada' })
-            return
+        // Verifica se os dados obrigatórios estão presentes
+        if (!enunciado || !dificuldade || !conteudo) {
+            return res.status(422).json({ error: 'Dados obrigatórios faltando' });
         }
 
-        res.status(200).json(questoes)
+        // Atualiza a questão no banco de dados
+        const questaoAtualizada = await Questoes.findByIdAndUpdate(id, {
+            codQuestao,
+            enunciado,
+            multEscolha, 
+            alternativas,
+            conteudo,
+            turma,
+            foto,
+            dificuldade,
+            referencia,
+            compartilhar,
+            codProfessor
+        }, { new: true });
 
+        if (!questaoAtualizada) {
+            return res.status(404).json({ message: 'Questão não encontrada' });
+        }
+
+        res.status(200).json({ message: 'Questão atualizada com sucesso', questao: questaoAtualizada });
     } catch (error) {
-        req.status(500).json({error: error})
+        res.status(500).json({ error: error.message });
     }
-
-})
+});
 
 module.exports = router

@@ -16,6 +16,10 @@ app.use(express.json())
 
 const professorRoutes = require('./routes/professorRoutes')
 app.use('/professor', professorRoutes)
+const questoesRoutes = require('./routes/questoesRoutes')
+app.use('/questoes', questoesRoutes)
+const provasRoutes = require('./routes/provasRoutes')
+app.use('/provas', provasRoutes)
 
 // route test
 app.get('/test', (res) => {

@@ -1,15 +1,18 @@
 const mongoose = require('mongoose')
 
 const Questoes = mongoose.model('Questoes', {
+    codQuestao: String,
     enunciado: String,
-    multiplaEscolha: String,
-    respostas: Array,
+    multEscolha: Boolean,
+    alternativas: Array,
     conteudo: Array,
     turma: Array,
     foto: String,
     dificuldade: String,
-    compartilhar: String,
-    codProfessor: String
+    referencia: String,
+    compartilhar: Boolean,
+    codProfessor: String,
+    materia: String
 }) 
 
 module.exports = Questoes

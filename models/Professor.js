@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const Professor = mongoose.model('Professor', {
+    codProfessor: String,
     nome: String,
     email: String,
     cpf: String,
